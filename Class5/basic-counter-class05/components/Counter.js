@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 export default function Counter() {
   const [count, setCount] = useState(0);
-  const maxLimit = Infinity;
+  const maxLimit = 10;
 
   const increment = () => {
     if (count < maxLimit) {
@@ -17,6 +17,10 @@ export default function Counter() {
     }
   };
 
+  const reset = () => {
+    setCount(0);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Counter</Text>
@@ -28,6 +32,7 @@ export default function Counter() {
         onPress={increment}
         style={[styles.button, count === maxLimit && styles.disabledButton]}
         disabled={count === maxLimit}
+        onLongPress={() => setCount(0)} 
       >
         <Text style={styles.buttonText}>
           {count === maxLimit ? "Limit Reached" : "Increase"}
@@ -43,6 +48,14 @@ export default function Counter() {
           {count === 1 ? "Cannot Decrease" : "Decrease"}
         </Text>
       </TouchableOpacity>
+      
+      <TouchableOpacity
+        onPress={reset}
+        style={styles.button}
+        >
+       <Text style={styles.buttonText}>Clear</Text>
+      </TouchableOpacity>
+
     </View>
   );
 }
